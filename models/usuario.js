@@ -13,15 +13,16 @@ const UsuarioSchema = Schema({
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es obligatoria']
+        required: [true, 'La contraseña es obligatoria'],
     },
     img: {
-        type: String
+        type: String,
     },
     rol: {
         type: String,
-        required: [true, 'La contraseña es obligatoria'],
-        enum: ['ADMIN_ROLE', 'USER_ROLE']
+        required: true,
+        default: 'USER_ROLE',
+        emun: ['ADMIN_ROLE', 'USER_ROLE']
     },
     estado: {
         type: Boolean,
@@ -30,10 +31,12 @@ const UsuarioSchema = Schema({
     google: {
         type: Boolean,
         default: false
-    }
+    },
 });
 
-UsuarioSchema.methods.toJSON = function(){
+
+
+UsuarioSchema.methods.toJSON = function () {
     const { __v, password, _id, ...usuario } = this.toObject();
     usuario.uid = _id;
     return usuario;
